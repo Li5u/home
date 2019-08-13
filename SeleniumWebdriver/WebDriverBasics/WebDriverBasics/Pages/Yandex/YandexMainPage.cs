@@ -13,7 +13,7 @@ namespace WebDriverBasics
         public IWebElement ShowSendedLettersButton => Driver.FindElement(By.XPath("//a[@href = '#sent']"));
 
         public string lettersLocator = "//div[contains(@class, 'ns-view-messages-item-box')]";
-        public string LetterCssSelector = "div[class*=\"ns-view-messages-item-box\"]";
+        //public string LetterCssSelector = "div[class*=\"ns-view-messages-item-box\"]";
 
         public YandexMainPage(IWebDriver driver) : base(driver) { }
 

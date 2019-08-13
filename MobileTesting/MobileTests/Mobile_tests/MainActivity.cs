@@ -2,7 +2,7 @@
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 
-namespace Mobile_tests
+namespace MobileTests
 {
     class MainActivity
     {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 using Xamarin.UITest;
 
@@ -31,8 +27,7 @@ namespace MobileTests
         public void OpenDevicePage()
         {
             SkipNewcomersInstruction();
-            app.Tap(c => c.Id("menu_search"));
-            app.EnterText(c => c.Id("menu_search"), "jbl");
+            SearhFor("jbl");
             app.DismissKeyboard();
             app.ScrollDownTo("JBL Flip 4 Trio", strategy: ScrollStrategy.Programmatically, timeout: new TimeSpan(0, 1, 0));
             app.Tap(c => c.Text("JBL Flip 4 Trio"));
@@ -45,6 +40,12 @@ namespace MobileTests
             app.Tap(c => c.Id("nextView"));
             app.Tap(c => c.Id("nextView"));
             app.Tap(c => c.Id("nextView"));
+        }
+
+        public void SearhFor(string searhFor)
+        {
+            app.Tap(c => c.Id("menu_search"));
+            app.EnterText(c => c.Id("menu_search"), searhFor);
         }
     }
 }

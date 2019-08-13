@@ -6,7 +6,7 @@ namespace WebDriverBasics
     [TestFixture]
     class Tests : BaseTest
     {
-        private readonly string _username = "seleniumTestEpam";
+        private readonly string _username = "seleniumTestEpam4";
         private readonly string _password = "24514125s";
         private readonly string _address = "seleniumTaskEpam@mail.ru";
         private readonly string _subject = "Some subject";
@@ -23,11 +23,14 @@ namespace WebDriverBasics
         public void VerifyThatMailIPresentedInDraftFolder()
         {
             var yandexMainPage = LoginPage.LoginAs(_username, _password);
+            yandexMainPage.ShowDrafts();
+            int initialDraftCount = yandexMainPage.GetLettersFromFolder().Count;
             var yandexSendMessagePage = yandexMainPage.ClickSendMessageButton();
             yandexMainPage = yandexSendMessagePage.SaveAsDraft(_address, _subject, _text);
             yandexMainPage.ShowDrafts();
+            int finalDraftCount = yandexMainPage.GetLettersFromFolder().Count;
 
-            Assert.IsTrue(yandexMainPage.GetLettersFromFolder()[0].Displayed);
+            Assert.AreEqual(finalDraftCount, initialDraftCount + 1);
         }
 
         [Test]
@@ -74,14 +77,17 @@ namespace WebDriverBasics
         public void VerifyThatMailIsPresentedInSendedMailsFolder()
         {
             var yandexMainPage = LoginPage.LoginAs(_username, _password);
+            yandexMainPage.ShowSendedLetters();
+            int initialSentMailsCount = yandexMainPage.GetLettersFromFolder().Count;
             var yandexSendMessagePage = yandexMainPage.ClickSendMessageButton();
             yandexMainPage = yandexSendMessagePage.SaveAsDraft(_address, _subject, _text);
             yandexMainPage.ShowDrafts();
             yandexSendMessagePage = yandexMainPage.OpenLatestLetter();
             yandexMainPage = yandexSendMessagePage.ClickSendLetterButton();
             yandexMainPage.ShowSendedLetters();
+            int finalMailsCount = yandexMainPage.GetLettersFromFolder().Count;
 
-            Assert.IsTrue(yandexMainPage.GetLettersFromFolder()[0].Displayed);
+            Assert.AreEqual(finalMailsCount, initialSentMailsCount + 1);
         }
 
         [Test]
@@ -91,11 +97,13 @@ namespace WebDriverBasics
             var yandexSendMessagePage = yandexMainPage.ClickSendMessageButton();
             yandexMainPage = yandexSendMessagePage.SaveAsDraft(_address, _subject, _text);
             yandexMainPage.ShowDrafts();
+            int initialDraftCount = yandexMainPage.GetLettersFromFolder().Count;
             yandexSendMessagePage = yandexMainPage.OpenLatestLetter();
             yandexMainPage = yandexSendMessagePage.ClickSendLetterButton();
             yandexMainPage.ShowDrafts();
+            int finalDraftCount = yandexMainPage.GetLettersFromFolder().Count;
 
-            Assert.IsFalse(yandexMainPage.IsElementPresented(yandexMainPage.lettersLocator));
+            Assert.AreEqual(finalDraftCount, initialDraftCount - 1);
         }
     }
 }

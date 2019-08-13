@@ -8,7 +8,7 @@ namespace JsonPlaseHolder
     {
         public HttpWebRequest CreateRequest(string requestURL)
         {
-            HttpWebRequest request =(HttpWebRequest)HttpWebRequest.Create(requestURL);
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(requestURL);
             request.Method = "GET";
 
             return request;
